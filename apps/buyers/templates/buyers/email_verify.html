@@ -1,7 +1,4 @@
 {% load static %}
-{% block title %} {% endblock %}
-   {% block body %}
-
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -89,40 +86,31 @@ font-size: 20px;
       <div class="col-md-6 mx-auto text-center">
          <div class="header-title">
             <h1 class="wv-heading--title">
-               <a class="navbar-brand" href="index.html"><img src="{% static 'web/img/logo.svg' %}" height="34" alt="logo" /></a>
+               <a class="navbar-brand" href="index.html"><img src="{% static 'buyers/img/logo.svg' %}" height="34" alt="logo" /></a>
             </h1>
             <h2 class="wv-heading--subtitle">
-               Login Your Account
+               Email verification
             </h2>
          </div>
       </div>
       <div class="row">
          <div class="col-md-4 mx-auto">
             <div class="myform form ">
-               <form action="" method="post" name="login">
+               <form action="{% url 'email_verify' %}" method="post" name="login">
                 {% csrf_token %}
                   <div class="form-group">
-                    <label for="">Email</label>
-                     <input type="email" name="email"  class="form-control my-input" id="email" placeholder="Example@gmail.com">
+                     <input type="hidden" name="email"  class="form-control my-input" id="email" placeholder="Example@gmail.com" value="{{email}}">
                   </div>
                   <div class="form-group">
-                    <label for="">Password</label>
-                     <input type="password" min="0" name="password" id="password"  class="form-control my-input" placeholder="********">
+                    <label for="">Enter OTP</label>
+                     <input type="text" min="0" name="otp" id="otp"  class="form-control my-input" placeholder="_ _ _ _ _ _">
                   </div>
                   <div class="text-center ">
-                     <button type="submit" class=" btn btn-block send-button tx-tfm" style="background-color: #F1A501;">Login</button>
+                     <button type="submit" class=" btn btn-block send-button tx-tfm" style="background-color: #F1A501;">Verify</button>
                   </div>
-                 <div class="text-center my-3">
-                     <p> Don't Account <a href="{% url 'signup' %}" style="color: #F1A501;">register</a></p>
-                     
-                  </div>
-                 
-                  <p class="small mt-3">By signing up, you are indicating that you have read and agree to the <a href="#" class="ps-hero__content__link">Terms of Use</a> and <a href="#">Privacy Policy</a>.
-                  </p>
                </form>
             </div>
          </div>
       </div>
    </div>
 </body>
-   {% endblock %}
