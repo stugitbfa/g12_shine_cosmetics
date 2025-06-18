@@ -16,4 +16,5 @@ class Customer(BaseClass):
     email = models.EmailField(max_length=255, blank=False, null=False)
     mobile = models.CharField(max_length=255, null=False, blank=False)
     password = models.CharField(max_length=255, null=False, blank=False)
+    otp = models.CharField(max_length=20, blank=False, null=False, default="112233")
     is_active = models.BooleanField(default=False)

@@ -142,8 +142,6 @@ def contact(request):
     return render(request, 'buyers/contact.html')
 
 
-def blogs(request):
-    return render(request, 'buyers/blogs.html')
 
 @login_required
 def profile(request):
