@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.hashers import make_password, check_password
-
+from django.core.paginator import Paginator
+from .models import *
 from .helpers import *
 from .models import Customer
 
@@ -11,7 +12,6 @@ from functools import wraps
 import random
 
 # Create your views here.
-
 def login_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
@@ -83,20 +83,20 @@ def signup(request):
         otp = random.randint(111111, 999999)
         new_customer.otp = otp
         new_customer.save()
-        subject = "Confirm Your Account | Jadoo"
+        subject = "Confirm Your Account | SHINE Cosmetics"
         message = f"""
         Dear User,
 
-        Thank you for registering with Jadoo.
+        Thank you for registering with SHINE Cosmetics.
 
         Your One-Time Password (OTP) for email verification is: {otp}
 
-        Please enter this OTP in the app/website to complete your email verification process. 
+        Please enter this OTP in the website to complete your email verification process. 
 
         If you did not request this, please ignore this email.
 
         Best regards,  
-        Team Jadoo
+        Team SHINE Cosmetics
         """
 
         send_mail(subject, message, settings.EMAIL_HOST_USER, [f"{email_}"])
@@ -107,6 +107,7 @@ def signup(request):
         return render(request, 'buyers/email_verify.html', context)
 
     return render(request, 'buyers/signup.html')
+
 
 def email_verify(request):
     if request.method == 'POST':
@@ -128,27 +129,42 @@ def email_verify(request):
         return redirect('login')
 
     return render(request, 'buyers/email_verify.html')
-
+def forgot_password(request):
+    return render(request, 'buyers/forgot_password.html')
+def otp_verification(request):
+    return render(request, 'buyers/otp_verification.html')
 def index(request):
     return render(request, 'buyers/index.html')
-
 def about(request):
     return render(request, 'buyers/about.html')
-
-def shop(request):
-    return render(request, 'buyers/shop.html')
-
 def contact(request):
     return render(request, 'buyers/contact.html')
+def product(request):
+    product_list = Product.objects.all().order_by('-created_at')
+    categories = Category.objects.all().order_by('-created_at')
+    
+    # Paginate with 6 products per page
+    paginator = Paginator(product_list, 9)
+    
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'categories':categories
+    }
+    return render(request, 'buyers/product.html', context)
 
-
-
-@login_required
+def product_details(request, product_id):
+    product = get_object_or_404(Product, tid=product_id)
+    context = {
+        'product':product
+    }
+    print(product)
+    return render(request, 'buyers/product_details.html', context)
+def categories(request):
+    return render(request, 'buyers/categories.html')
+def cart(request):
+    return render(request, 'buyers/cart.html')
 def profile(request):
     return render(request, 'buyers/profile.html')
-
-@login_required
-def logout(request):
-    del request.session['customer_id']
-    print("Now, you are logged Out.")
-    return redirect('login')
