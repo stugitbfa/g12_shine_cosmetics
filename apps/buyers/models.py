@@ -38,3 +38,22 @@ class Product(BaseModel):
     
     def __str__(self):
         return self.title
+
+
+CONTACT_STATUS_CHOICES = [
+    ('new', 'New'),
+    ('in_progress', 'In Progress'),
+    ('resolved', 'Resolved'),
+]
+
+class ContactMessage(BaseModel):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=150)
+    message = models.TextField()
+    status = models.CharField(max_length=20, choices=CONTACT_STATUS_CHOICES, default='new')
+
+    def __str__(self):
+        return f"{self.name} - {self.subject} ({self.get_status_display()})"
+
+

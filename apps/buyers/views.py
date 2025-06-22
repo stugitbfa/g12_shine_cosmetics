@@ -12,6 +12,7 @@ from functools import wraps
 import random
 
 # Create your views here.
+
 def login_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
@@ -137,9 +138,29 @@ def index(request):
     return render(request, 'buyers/index.html')
 def about(request):
     return render(request, 'buyers/about.html')
+from django.contrib import messages  
+
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        user_message = request.POST['message']  
+
+        ContactMessage.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=user_message
+        )
+
+        messages.success(request, "Your message has been sent successfully! Our team will get back to you shortly.") 
+        return redirect('contact')
+
     return render(request, 'buyers/contact.html')
+
 def product(request):
+    
     product_list = Product.objects.all().order_by('-created_at')
     categories = Category.objects.all().order_by('-created_at')
     
@@ -162,8 +183,23 @@ def product_details(request, product_id):
     }
     print(product)
     return render(request, 'buyers/product_details.html', context)
+def category_view(request, category_name):
+    category = get_object_or_404(Category, name__iexact=category_name)
+    products = Product.objects.filter(category=category, is_available=True).order_by('-created_at')
+
+    paginator = Paginator(products, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'buyers/category_template.html', {
+        'category': category.name,
+        'products': page_obj,
+        'page_obj': page_obj,
+    })
+
 def categories(request):
     return render(request, 'buyers/categories.html')
+
 def cart(request):
     return render(request, 'buyers/cart.html')
 def profile(request):

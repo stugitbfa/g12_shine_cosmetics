@@ -10,3 +10,7 @@ class CustomerAdmin(admin.ModelAdmin):
 admin.site.register(Customer)
 admin.site.register(Category)
 admin.site.register(Product)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'subject', 'status', 'created_at']
+    list_filter = ['status']
+    search_fields = ['name', 'email', 'subject', 'message']

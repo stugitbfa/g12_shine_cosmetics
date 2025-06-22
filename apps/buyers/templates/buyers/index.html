@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{% static 'buyers/img/banner_img_01.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'buyers/img/h1.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
@@ -54,16 +54,19 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{% static 'buyers/img/banner_img_02.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'buyers/img/makeup1.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1">Proident occaecat</h1>
-                            <h3 class="h2">Aliquip ex ea commodo consequat</h3>
+                            <h1 class="h1">Unleash your inner glow with SHINE Cosmetics Makeup</h1>
+
                             <p>
-                                You are permitted to use this Zay CSS template for your commercial websites.
-                                You are <strong>not permitted</strong> to re-distribute the template ZIP file in any
-                                kind of template collection websites.
+
+                                Our carefully curated makeup collection is designed to enhance every skin tone and style
+                                — from silky foundations and vibrant blushes to dazzling highlighters and eye-catching
+                                shadows. Each product is made with skin-loving, cruelty-free ingredients that deliver
+                                lasting beauty without compromise. Whether you're creating a bold look or a soft
+                                everyday glow, SHINE helps you express yourself with confidence and style.
                             </p>
                         </div>
                     </div>
@@ -74,16 +77,19 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{% static 'buyers/img/banner_img_03.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'buyers/img/lips.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1">Repr in voluptate</h1>
+                            <h1 class="h1">Let your lips do the talking with SHINE Cosmetics Lipsticks</h1>
                             <h3 class="h2">Ullamco laboris nisi ut </h3>
                             <p>
-                                We bring you 100% free CSS templates for your websites.
-                                If you wish to support TemplateMo, please make a small contribution via PayPal or tell
-                                your friends about our website. Thank you.
+
+                                Our collection features richly pigmented, long-lasting shades that glide on effortlessly
+                                and stay put all day. Infused with nourishing ingredients like vitamin E and natural
+                                oils, SHINE lipsticks keep your lips soft, smooth, and beautifully bold. From timeless
+                                reds to trendy nudes, there’s a perfect shade for every mood and moment — because
+                                confidence starts with a swipe
                             </p>
                         </div>
                     </div>
@@ -104,38 +110,55 @@
 
 
 <!-- Start Categories of The Month -->
-<section class="container py-5">
-    <div class="row text-center pt-3">
-        <div class="col-lg-6 m-auto">
-            <h1 class="h1">Categories of The Month</h1>
-            <p>
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-            </p>
+<section class="container-fluid py-5" style="background-color: #ffe6eb;">
+    <div class="container">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Our Categories</h1>
+                <p>
+                    Elevate your beauty routine with our carefully curated collection of skincare, makeup, and wellness
+                    essentials. Because feeling good starts with looking your best.
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{% static 'buyers/img/category_img_01.jpg' %}"
-                    class="rounded-circle img-fluid border"></a>
-            <h5 class="text-center mt-3 mb-3">Watches</h5>
-            <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-        </div>
-        <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{% static 'buyers/img/category_img_02.jpg' %}"
-                    class="rounded-circle img-fluid border"></a>
-            <h2 class="h5 text-center mt-3 mb-3">Shoes</h2>
-            <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
-        </div>
-        <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="{% static 'buyers/img/category_img_03.jpg' %}"
-                    class="rounded-circle img-fluid border"></a>
-            <h2 class="h5 text-center mt-3 mb-3">Accessories</h2>
-            <p class="text-center"><a class="btn btn-success">Go Shop</a></p>
+        <div class="row">
+            <!-- Makeup -->
+            <div class="col-12 col-md-4 p-5 mt-3 text-center">
+                <a href="{% url 'category_view' 'Makeup' %}">
+                    <img src="{% static 'buyers/img/m1.jpg' %}" class="rounded-circle img-fluid border" alt="Makeup">
+                </a>
+                <h5 class="mt-3 mb-3">Makeup</h5>
+                <a href="{% url 'category_view' 'Makeup' %}"
+                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                    Go Shop
+                </a>
+            </div>
+
+
+            <!-- Eyes -->
+            <div class="col-12 col-md-4 p-5 mt-3 text-center">
+                <a href="#"><img src="{% static 'buyers/img/e1.jpg' %}" class="rounded-circle img-fluid border"></a>
+                <h5 class="mt-3 mb-3">Eyes</h5>
+                <a href="{% url 'category_view' 'Eyes' %}"
+                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                    Go Shop
+                </a>
+            </div>
+
+            <!-- Nails -->
+            <div class="col-12 col-md-4 p-5 mt-3 text-center">
+                <a href="#"><img src="{% static 'buyers/img/n1.jpg' %}" class="rounded-circle img-fluid border"></a>
+                <h5 class="mt-3 mb-3">Nails</h5>
+                <a href="{% url 'category_view' 'Nails' %}"
+                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                    Go Shop
+                </a>
+            </div>
         </div>
     </div>
 </section>
 <!-- End Categories of The Month -->
+
 
 
 <!-- Start Featured Product -->
@@ -145,8 +168,9 @@
             <div class="col-lg-6 m-auto">
                 <h1 class="h1">Featured Product</h1>
                 <p>
-                    Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident.
+                    At SHINE Cosmetics, we believe beauty should never come at the cost of your well-being. Our products
+                    are designed to delight your senses without any harsh ingredients. No irritation. No worries. Just
+                    clean, conscious beauty that makes you glow naturally.
                 </p>
             </div>
         </div>
@@ -154,75 +178,42 @@
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <a href="shop-single.html">
-                        <img src="{% static 'buyers/img/feature_prod_01.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'buyers/img/mens.jpg' %}" class="card-img-top" alt="...">
                     </a>
                     <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$240.00</li>
-                        </ul>
-                        <a href="shop-single.html" class="h2 text-decoration-none text-dark">Gym Weight</a>
+                        <a href="#" class="h2 text-decoration-none text-dark">Men's Care</a>
                         <p class="card-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia
-                            deserunt.
+                            "Stay sharp, look fresh. SHINE Men’s Care is arriving soon — skincare and grooming made
+                            simple, effective, and powerful."
                         </p>
-                        <p class="text-muted">Reviews (24)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-4">
+                <div class="card h-100">
+                    <a href="#">
+                        <img src="{% static 'buyers/img/hair.jpg' %}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <a href="#" class="h2 text-decoration-none text-dark">Hair Care</a>
+                        <p class="card-text">
+                            "One care fits all. SHINE Hair Care supports strong, shiny hair for everyone — from morning
+                            routines to bedtime stories."
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-md-4 mb-4">
                 <div class="card h-100">
                     <a href="shop-single.html">
-                        <img src="{% static 'buyers/img/feature_prod_02.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'buyers/img/skin.jpg' %}" class="card-img-top" alt="...">
                     </a>
                     <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$480.00</li>
-                        </ul>
-                        <a href="shop-single.html" class="h2 text-decoration-none text-dark">Cloud Nike Shoes</a>
+                        <a href="#" class="h2 text-decoration-none text-dark">Skin Care</a>
                         <p class="card-text">
-                            Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo
-                            ullamcorper.
+                            "Skincare that feels like self-care. Clean, cruelty-free, and made for the whole family — SHINE keeps every skin type happy and healthy."
                         </p>
-                        <p class="text-muted">Reviews (48)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
-                    <a href="shop-single.html">
-                        <img src="{% static 'buyers/img/feature_prod_03.jpg' %}" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$360.00</li>
-                        </ul>
-                        <a href="shop-single.html" class="h2 text-decoration-none text-dark">Summer Addides Shoes</a>
-                        <p class="card-text">
-                            Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque
-                            ipsum lobortis nec.
-                        </p>
-                        <p class="text-muted">Reviews (74)</p>
+                        
                     </div>
                 </div>
             </div>

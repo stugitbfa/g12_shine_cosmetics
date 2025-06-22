@@ -1,0 +1,41 @@
+{% extends 'buyers/base.html' %}
+{% load static %}
+
+{% block title %}{{ category }}{% endblock %}
+{% block body %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">{{ category }} Products</h1>
+    <div class="row justify-content-center">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">₹{{ product.price }}</p>
+                        <a href="{% url 'product_details' product.tid %}" class="btn btn-outline-dark">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No products found in this category.</p>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="text-center mt-4">
+        <nav>
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

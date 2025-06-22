@@ -15,4 +15,6 @@ urlpatterns = [
     path('product-details/<uuid:product_id>', product_details, name='product_details'),
     path('cart/', cart, name='cart'),
     path('profile/', profile, name='profile'),
+    path('category/<str:category_name>/', category_view, name='category_view'),
+
 ]
