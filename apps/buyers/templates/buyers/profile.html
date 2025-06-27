@@ -114,7 +114,7 @@
             </div>
             <div class="col-md-6">
               <label for="mobile" class="form-label">Mobile Number</label>
-              <input type="text" class="form-control" name="mobile" id="mobile" required>
+              <input type="text" value="{{ mobile|default:'+91 ' }}"class="form-control" name="mobile" id="mobile" required>
             </div>
             <div class="col-md-4">
               <label for="pincode" class="form-label">Pincode</label>

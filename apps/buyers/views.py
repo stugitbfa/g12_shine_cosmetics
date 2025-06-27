@@ -10,10 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta, time as dt_time
 import random
-
 from .models import *
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+# from django.utils import send_order_confirmation_email
 
-# Decorator to require login
+
 def login_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
@@ -249,6 +251,28 @@ def order_list(request):
     orders = Order.objects.filter(customer=customer).order_by('-created_at')
     return render(request, 'buyers/order_list.html', {'orders': orders})
 
+def send_order_confirmation_email(order, customer_email):
+    """Send an order confirmation email."""
+    context = {
+        'order': order,
+        'items': order.items.all(),
+    }
+    subject = f"Your Order #{order.id} is Confirmed!"
+
+    html_message = render_to_string('emails/order_confirmation.html', context)
+    plain_message = strip_tags(html_message)
+
+    send_mail(
+        subject,
+        plain_message,
+        None,  # Will use DEFAULT_FROM_EMAIL
+        [customer_email],
+        html_message=html_message,
+    )
+    # order = Order.objects.create(...)
+    # send_order_confirmation_email(order, Order.email)
+# Decorator to require login
+
 @login_required
 def create_order(request):
     if request.method == 'POST':
@@ -297,7 +321,9 @@ def create_order(request):
             delivery_date=delivery_date,
             delivery_time=delivery_time
         )
-
+        # customer_email = order
+        # send_order_confirmation_email(order, customer_email)
+        
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -312,7 +338,7 @@ def create_order(request):
         else:
             messages.success(request, "Scheduled order placed successfully!")
 
-        return redirect('orders')
+        return redirect('order_list')
 
     return redirect('checkout')
 # @login_required

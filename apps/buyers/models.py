@@ -131,24 +131,11 @@ class Order(BaseModel):
     def __str__(self):
         return f"Order #{self.tid} - {self.customer.email}"
 
-class OrderItem(BaseModel):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
-    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # price at purchase time
-
-    @property
-    def total_price(self):
-        return round(self.price * self.quantity, 2)
-
-    def __str__(self):
-        return f"{self.product.title} x {self.quantity}"
-
 # class OrderItem(BaseModel):
 #     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
-#     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+#     product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
 #     quantity = models.PositiveIntegerField(default=1)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)  # price at time of purchase
+#     price = models.DecimalField(max_digits=10, decimal_places=2)  # price at purchase time
 
 #     @property
 #     def total_price(self):
@@ -156,12 +143,6 @@ class OrderItem(BaseModel):
 
 #     def __str__(self):
 #         return f"{self.product.title} x {self.quantity}"
-
-# CONTACT_STATUS_CHOICES = [
-#     ('new', 'New'),
-#     ('in_progress', 'In Progress'),
-#     ('resolved', 'Resolved'),
-# ]
 
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
