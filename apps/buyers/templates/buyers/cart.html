@@ -1,4 +1,139 @@
 {% extends 'buyers/base.html' %}
 {% load static %}
-{% block title %} cart {% endblock %}
+{% block title %}
+Cart
+{% endblock %}
+
 {% block body %}
+
+<style>
+/* Pink theme for cart page */
+
+.bg-pink {
+    background-color: #e91e63 !important;  /* Pink */
+}
+
+.text-pink {
+    color: #e91e63 !important;
+}
+
+.btn-outline-danger {
+    color: #e91e63 !important;
+    border-color: #e91e63 !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e91e63 !important;
+    color: white !important;
+    border-color: #e91e63 !important;
+}
+
+.btn-danger {
+    background-color: #e91e63 !important;
+    border-color: #e91e63 !important;
+}
+
+.btn-danger:hover {
+    background-color: #c2185b !important; /* Darker pink */
+    border-color: #c2185b !important;
+}
+
+.table th, .table td {
+    vertical-align: middle !important;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #fce4ec !important; /* Light pink hover */
+}
+
+.text-success {
+    color: #ad1457 !important; /* Dark pink for total */
+}
+</style>
+
+<!-- inner page section -->
+<section class="inner_page_head">
+   <div class="container_fuild">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="full">
+               <h3><i class="bi bi-cart-check-fill text-pink"></i> Your Shopping Cart</h3>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<div class="container mt-5 mb-5">
+
+   {% if cart_items %}
+   <div class="table-responsive shadow-sm rounded">
+      <table class="table align-middle table-hover border">
+         <thead class="bg-pink text-white">
+            <tr>
+               <th>Product</th>
+               <th>Title</th>
+               <th>Price</th>
+               <th>Quantity</th>
+               <th>Total</th>
+               <th class="text-center">Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for item in cart_items %}
+            <tr>
+               <td>
+                  <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="img-thumbnail"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+               </td>
+               <td>
+                  <strong>{{ item.product.title }}</strong><br>
+                  <small class="text-muted">{{ item.product.category.name }}</small>
+               </td>
+               <td>₹{{ item.product.price }}</td>
+               <td>
+                  <form action="{% url 'update_cart' cart_id=item.tid %}" method="POST" class="d-flex">
+                     {% csrf_token %}
+                     <input type="number" name="quantity" value="{{ item.quantity }}" min="1"
+                        class="form-control form-control-sm me-2" style="width: 70px;">
+                     <button type="submit" class="btn btn-outline-success btn-sm" title="Update"><i
+                           class="bi bi-check2-circle"></i></button>
+                  </form>
+               </td>
+               <td><strong>₹{{ item.total_amount }}</strong></td>
+               <td class="text-center">
+                  <a href="{% url 'delete_cart' cart_id=item.tid %}" class="btn btn-sm btn-outline-danger"
+                     title="Remove"><i class="bi bi-trash3"></i></a>
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+         <tfoot>
+            <tr>
+               <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
+               <td><strong class="text-success fs-5">₹{{ total }}</strong></td>
+               <td></td>
+            </tr>
+         </tfoot>
+      </table>
+   </div>
+
+   <!-- Checkout Section -->
+   <div class="text-end mt-4">
+      <a href="{% url 'checkout' %}" class="btn btn-danger btn-lg">
+         <i class="bi bi-cash-coin"></i> Proceed to Checkout
+      </a>
+   </div>
+
+   {% else %}
+   <div class="alert alert-warning text-center mt-5">
+      <i class="bi bi-cart-x-fill text-pink"></i> Your cart is empty.
+      <div class="mt-3">
+         <a href="{% url 'product' %}" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i> Continue
+            Shopping</a>
+      </div>
+   </div>
+   {% endif %}
+</div>
+
+{% endblock %}

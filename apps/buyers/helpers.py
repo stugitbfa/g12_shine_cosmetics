@@ -1,24 +1,15 @@
 import re
 
 def is_email_verified(email):
-    # Basic email regex pattern
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    
-    # Match the pattern
     return re.match(pattern, email) is not None
 
 def is_valid_mobile_number(mobile):
     pattern = r'^\+91\s[6-9]\d{9}$'
     return re.match(pattern, mobile) is not None
 
-def is_valid_password(password):
-    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$'
-    return re.match(pattern, password) is not None
-
-
 def validate_password(password):
     errors = []
-
     if len(password) < 8:
         errors.append("Password must be at least 8 characters long.")
     if not re.search(r'[A-Z]', password):
@@ -30,8 +21,6 @@ def validate_password(password):
     if not re.search(r'[@$!%*#?&]', password):
         errors.append("Password must contain at least one special character (@, $, !, %, *, #, ?, &).")
 
-    if len(errors) == 0:
-        is_password = True, 
-    else:
-        is_password = False, ','.join(errors)
-    return is_password
+    if errors:
+        return False, ' '.join(errors)
+    return True, ''

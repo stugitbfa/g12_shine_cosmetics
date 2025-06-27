@@ -23,6 +23,26 @@
 
 
 <!-- Start Banner Hero -->
+<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="w-100 pt-1 mb-5 text-right">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="get" class="modal-content modal-body border-0 p-0">
+            <div class="input-group mb-2">
+                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                <button type="submit" class="input-group-text bg-success text-light">
+                    <i class="fa fa-fw fa-search text-white"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<!-- Start Banner Hero -->
 <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
     <ol class="carousel-indicators">
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
@@ -34,7 +54,7 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{% static 'buyers/img/h1.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'buyers/img/makeup1.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
@@ -50,11 +70,12 @@
                 </div>
             </div>
         </div>
+
         <div class="carousel-item">
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="{% static 'buyers/img/makeup1.jpg' %}" alt="">
+                        <img class="img-fluid" src="{% static 'buyers/img/h1.jpg' %}" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
@@ -109,116 +130,191 @@
 <!-- End Banner Hero -->
 
 
-<!-- Start Categories of The Month -->
 <section class="container-fluid py-5" style="background-color: #ffe6eb;">
     <div class="container">
         <div class="row text-center pt-3">
-            <div class="col-lg-6 m-auto">
-                <h1 class="h1">Our Categories</h1>
-                <p>
+            <div class="col-lg-8 m-auto p-4"
+                 style="border: 2px dashed #ffb6c1; border-radius: 15px; background-color: #fff0f5; box-shadow: 0 0 15px rgba(255, 182, 193, 0.3);">
+                <h1 class="h1" style="font-weight: bold; color: #d63384;">Our Categories</h1>
+                <p style="font-size: 1.1rem; color: #6c567b; line-height: 1.6;">
                     Elevate your beauty routine with our carefully curated collection of skincare, makeup, and wellness
                     essentials. Because feeling good starts with looking your best.
                 </p>
             </div>
         </div>
+
         <div class="row">
             <!-- Makeup -->
-            <div class="col-12 col-md-4 p-5 mt-3 text-center">
-                <a href="{% url 'category_view' 'Makeup' %}">
-                    <img src="{% static 'buyers/img/m1.jpg' %}" class="rounded-circle img-fluid border" alt="Makeup">
-                </a>
-                <h5 class="mt-3 mb-3">Makeup</h5>
-                <a href="{% url 'category_view' 'Makeup' %}"
-                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
-                    Go Shop
-                </a>
+            <div class="col-12 col-md-4 d-flex">
+                <div class="w-100 d-flex flex-column align-items-center justify-content-between text-center p-4" style="background-color: transparent; min-height: 450px;">
+                    <a href="{% url 'category_view' 'Makeup' %}">
+                        <img src="{% static 'buyers/img/majfjffjkf.jpg' %}" class="rounded-circle img-fluid mb-3"
+                            alt="Makeup"
+                            style="border: 5px solid #ffc0cb; box-shadow: 0 4px 10px rgba(255,182,193,0.4); transition: all 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 0 20px rgba(255,105,180,0.6)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(255,182,193,0.4)';">
+                    </a>
+                    <h5 class="mb-3">Makeup</h5>
+                    <a href="{% url 'category_view' 'Makeup' %}"
+                        style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                        Go Shop
+                    </a>
+                </div>
             </div>
 
-
             <!-- Eyes -->
-            <div class="col-12 col-md-4 p-5 mt-3 text-center">
-                <a href="#"><img src="{% static 'buyers/img/e1.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <h5 class="mt-3 mb-3">Eyes</h5>
-                <a href="{% url 'category_view' 'Eyes' %}"
-                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
-                    Go Shop
-                </a>
+            <div class="col-12 col-md-4 d-flex">
+                <div class="w-100 d-flex flex-column align-items-center justify-content-between text-center p-4" style="background-color: transparent; min-height: 450px;">
+                    <a href="{% url 'category_view' 'Eyes' %}">
+                        <img src="{% static 'buyers/img/foreyes.jpg' %}" class="rounded-circle img-fluid mb-3"
+                            alt="Eyes"
+                            style="border: 5px solid #ffc0cb; box-shadow: 0 4px 10px rgba(255,182,193,0.4); transition: all 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 0 20px rgba(255,105,180,0.6)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(255,182,193,0.4)';">
+                    </a>
+                    <h5 class="mb-3">Eyes</h5>
+                    <a href="{% url 'category_view' 'Eyes' %}"
+                        style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                        Go Shop
+                    </a>
+                </div>
             </div>
 
             <!-- Nails -->
-            <div class="col-12 col-md-4 p-5 mt-3 text-center">
-                <a href="#"><img src="{% static 'buyers/img/n1.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <h5 class="mt-3 mb-3">Nails</h5>
-                <a href="{% url 'category_view' 'Nails' %}"
-                    style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
-                    Go Shop
-                </a>
+            <div class="col-12 col-md-4 d-flex">
+                <div class="w-100 d-flex flex-column align-items-center justify-content-between text-center p-4" style="background-color: transparent; min-height: 450px;">
+                    <a href="{% url 'category_view' 'Nails' %}">
+                        <img src="{% static 'buyers/img/fornais.jpg' %}" class="rounded-circle img-fluid mb-3"
+                            alt="Nails"
+                            style="border: 5px solid #ffc0cb; box-shadow: 0 4px 10px rgba(255,182,193,0.4); transition: all 0.3s ease;"
+                            onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 0 20px rgba(255,105,180,0.6)';"
+                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(255,182,193,0.4)';">
+                    </a>
+                    <h5 class="mb-3">Nails</h5>
+                    <a href="{% url 'category_view' 'Nails' %}"
+                        style="background-color: #ff69b4; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                        Go Shop
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+
+
+<!-- Add this script at the bottom -->
+<script>
+    function animateClick(element) {
+        const img = element.querySelector('img');
+        if (img) {
+            img.style.transform = 'scale(1.1)';
+            img.style.boxShadow = '0 0 20px rgba(255,105,180,0.6)';
+            setTimeout(() => {
+                img.style.transform = 'scale(1)';
+                img.style.boxShadow = '0 4px 10px rgba(255,182,193,0.4)';
+            }, 200);
+        }
+    }
+</script>
+
 <!-- End Categories of The Month -->
 
 
 
 <!-- Start Featured Product -->
-<section class="bg-light">
-    <div class="container py-5">
-        <div class="row text-center py-3">
+<section style="background-color: #fff0f5; padding: 3rem 0;">
+    <div class="container">
+        <div class="row text-center" style="padding-bottom: 2rem;">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">Featured Product</h1>
-                <p>
-                    At SHINE Cosmetics, we believe beauty should never come at the cost of your well-being. Our products
-                    are designed to delight your senses without any harsh ingredients. No irritation. No worries. Just
-                    clean, conscious beauty that makes you glow naturally.
+                <h1 style="color: #e91e63; font-weight: bold; animation: fadeInDown 1s;">Featured Products</h1>
+                <p style="color: #555; animation: fadeInUp 1s;">
+                    At <span style="color: #e91e63; font-weight: bold;">SHINE Cosmetics</span>, we believe beauty should never come at the cost of your well-being.
+                    Discover our curated collection — clean, conscious beauty that lets your natural glow shine through.
                 </p>
             </div>
         </div>
         <div class="row">
+            <!-- Product Card 1 -->
             <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
+                <div onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 20px rgba(233,30,99,0.3)';"
+                     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.1)';"
+                     style="border: 2px solid #ffc0cb; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 100%; animation: fadeInUp 1s;">
                     <a href="shop-single.html">
-                        <img src="{% static 'buyers/img/mens.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'buyers/img/hairmain.jpg' %}" alt="Hair Dryer" style="width: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;">
                     </a>
-                    <div class="card-body">
-                        <a href="#" class="h2 text-decoration-none text-dark">Men's Care</a>
-                        <p class="card-text">
-                            "Stay sharp, look fresh. SHINE Men’s Care is arriving soon — skincare and grooming made
-                            simple, effective, and powerful."
+                    <div style="padding: 1rem;">
+                        <a href="#" style="color: #e91e63; text-decoration: none; font-size: 1.25rem; font-weight: bold;">Hair Dryer</a>
+                        <p style="color: #666; margin-top: 0.5rem;">
+                            LENA Travel Hair Dryer – Ionic, foldable, lightweight, and powerful for salon-quality results on the go.
                         </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Product Card 2 -->
             <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
+                <div onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 20px rgba(233,30,99,0.3)';"
+                     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.1)';"
+                     style="border: 2px solid #ffc0cb; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 100%; animation: fadeInUp 1s 0.2s;">
                     <a href="#">
-                        <img src="{% static 'buyers/img/hair.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'buyers/img/sunscreen.jpg' %}" alt="Sunscreen" style="width: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;">
                     </a>
-                    <div class="card-body">
-                        <a href="#" class="h2 text-decoration-none text-dark">Hair Care</a>
-                        <p class="card-text">
-                            "One care fits all. SHINE Hair Care supports strong, shiny hair for everyone — from morning
-                            routines to bedtime stories."
+                    <div style="padding: 1rem;">
+                        <a href="#" style="color: #e91e63; text-decoration: none; font-size: 1.25rem; font-weight: bold;">Sunscreen</a>
+                        <p style="color: #666; margin-top: 0.5rem;">
+                            Herbal sunscreen with cucumber, saffron, and jojoba oil. Nourishes and protects all skin types naturally.
                         </p>
                     </div>
                 </div>
             </div>
+
+            <!-- Product Card 3 -->
             <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
+                <div onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 20px rgba(233,30,99,0.3)';"
+                     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.1)';"
+                     style="border: 2px solid #ffc0cb; border-radius: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 100%; animation: fadeInUp 1s 0.4s;">
                     <a href="shop-single.html">
-                        <img src="{% static 'buyers/img/skin.jpg' %}" class="card-img-top" alt="...">
+                        <img src="{% static 'buyers/img/facepriff.jpg' %}" alt="Face Care" style="width: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;">
                     </a>
-                    <div class="card-body">
-                        <a href="#" class="h2 text-decoration-none text-dark">Skin Care</a>
-                        <p class="card-text">
-                            "Skincare that feels like self-care. Clean, cruelty-free, and made for the whole family — SHINE keeps every skin type happy and healthy."
+                    <div style="padding: 1rem;">
+                        <a href="#" style="color: #e91e63; text-decoration: none; font-size: 1.25rem; font-weight: bold;">Face Care</a>
+                        <p style="color: #666; margin-top: 0.5rem;">
+                            Soap-free, gentle facial cleanser for smooth, calm, and radiant skin. Perfect for daily care.
                         </p>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <!-- End Featured Product -->
+
+<!-- Inline Keyframe Animations (include at bottom or in head if allowed) -->
+<style>
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+</style>
+
+
 {% endblock %}
