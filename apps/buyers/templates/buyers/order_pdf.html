@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation - SHINE Cosmetics</title>
+</head>
+<body>
+    <h2>Order Confirmation - Order #{{ order.tid }}</h2>
+
+    <p>Dear {{ customer.email }},</p>
+
+    <p>Thank you for your order with SHINE Cosmetics!</p>
+
+    <h3>Order Details:</h3>
+    <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+    <p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+    <p><strong>Delivery Type:</strong> {{ order.delivery_type|title }}</p>
+
+    {% if order.delivery_date %}
+        <p><strong>Delivery Date:</strong> {{ order.delivery_date|date:"M d, Y" }}</p>
+    {% endif %}
+    {% if order.delivery_time %}
+        <p><strong>Delivery Time:</strong> {{ order.delivery_time|time:"h:i A" }}</p>
+    {% endif %}
+
+    <h3>We will notify you once your order is dispatched.</h3>
+
+    <p>Best regards,<br>Team SHINE Cosmetics</p>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Verification | SHINE Cosmetics</title>
+    <style>
+        body {
+            background-color: #ffe6f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .otp-container {
+            background-color: #fff0f5;
+            border: 2px solid #ff69b4;
+            border-radius: 15px;
+            padding: 30px 40px;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+            width: 320px;
+            text-align: center;
+        }
+
+        .otp-container h2 {
+            color: #ff1493;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .otp-container input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ff69b4;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .otp-container button {
+            background-color: #ff1493;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .otp-container button:hover {
+            background-color: #ff69b4;
+        }
+
+        .message {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="otp-container">
+    <h2>OTP Verification</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="email" value="{{ email }}">
+        <input type="text" name="otp" placeholder="Enter OTP" required><br>
+        <button type="submit">Verify OTP</button>
+    </form>
+</div>
+
+</body>
+</html>

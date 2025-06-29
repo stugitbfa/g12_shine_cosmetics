@@ -1,104 +1,214 @@
 {% extends 'buyers/base.html' %}
 {% load static %}
 
-{% block title %}
-Products
-{% endblock %}
+{% block title %}Products{% endblock %}
 
 {% block body %}
 
+<!-- Alert Messages -->
+{% if messages %}
+<div class="container mt-3">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
 
-<!-- product section -->
+<style>
+  .btn-pink {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+  }
+
+  .btn-pink:hover {
+    background-color: #d81b60;
+  }
+
+  .btn-outline-pink {
+    border: 1px solid #e91e63;
+    color: #e91e63;
+  }
+
+  .btn-outline-pink:hover {
+    background-color: #e91e63;
+    color: white;
+  }
+
+  .badge-pink {
+    background-color: #f8bbd0;
+    color: #880e4f;
+    padding: 0.4em 0.8em;
+  }
+
+  .pagination .page-link {
+    color: #e91e63;
+  }
+
+  .pagination .active .page-link {
+    background-color: #e91e63;
+    border-color: #e91e63;
+    color: white;
+  }
+
+  .product_section {
+    background-color: #fff0f5;
+  }
+
+  .box {
+    background: #fff;
+    border: 1px solid #f8bbd0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px #f8bbd0;
+  }
+
+  .img-box {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .img-box img {
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .product-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    word-break: break-word;
+  }
+
+  .product-price {
+    font-weight: bold;
+    color: #e91e63;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .product-footer {
+    margin-top: auto;
+    text-align: center;
+  }
+
+  .option_container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .text-pink {
+    color: #e91e63 !important;
+  }
+
+  /* Alert customization */
+  .alert-success {
+    background-color: #fce4ec;
+    border-color: #f8bbd0;
+    color: #880e4f;
+  }
+
+  .alert-info {
+    background-color: #fff3e0;
+    border-color: #ffccbc;
+    color: #6d4c41;
+  }
+
+  .alert .btn-close {
+    filter: brightness(0.2);
+  }
+</style>
+
 <section class="product_section layout_padding">
-    <div class="container">
-        <div class="heading_container heading_center">
-            <h2 class="text-center">
-                Our <span>products</span>
-            </h2>
-            <div class="d-flex justify-content-center">
-                {% for cat in categories %}
-                <h4><span class="badge badge-pill badge-danger mx-2">{{ cat.name }}</span></h4>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="row">
-            {% for product in page_obj %}
-            <div class="col-sm-6 col-md-4 col-lg-4">
-                <div class="box p-3 border rounded shadow-sm text-center">
-                    <!-- Image Box -->
-                    <div class="img-box mb-3" style="height: 220px; overflow: hidden;">
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}"
-                            style="width: 100%; height: auto; object-fit: contain;">
-                    </div>
-
-                    <!-- Product Title -->
-                    <h5>{{ product.title }}</h5>
-
-                 
-                    
-                    <!-- Price -->
-                    <div class="detail-box mb-2">
-                        <h5>₹{{ product.price }}</h5>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="option_container d-flex justify-content-around">
-                        <a href="#" class="btn btn-danger">Add to Cart</a>
-                        <a href="#" class="btn btn-outline-primary">Buy Now</a>
-                    </div>
-                    <a href="{% url 'product_details' product_id=product.tid %}" class="btn btn-link mt-2">More
-                        details</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="btn-box mt-5 d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-
-                    <!-- Previous Button -->
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <span class="page-link">&laquo;</span>
-                    </li>
-                    {% endif %}
-
-                    <!-- Page Numbers -->
-                    {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                    <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item"><a
-                            class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-
-                        <!-- Next Button -->
-                        {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">&raquo;</span>
-                        </li>
-                        {% endif %}
-
-                </ul>
-            </nav>
-        </div>
-
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2 class="text-center">
+        Our <span class="text-pink">Products</span>
+      </h2>
+      <div class="d-flex justify-content-center flex-wrap mt-3">
+        {% for cat in categories %}
+        <h5><span class="badge badge-pink mx-2">{{ cat.name }}</span></h5>
+        {% endfor %}
+      </div>
     </div>
+
+    <div class="row">
+      {% for product in page_obj %}
+      <div class="col-6 col-md-4 col-lg-3 d-flex">
+        <div class="box w-100">
+          <div class="img-box">
+            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+          </div>
+          <div class="product-title">{{ product.title }}</div>
+          <div class="product-price">₹{{ product.price }}</div>
+          <div class="product-footer">
+            <div class="option_container">
+              <a href="{% url 'add_to_cart' product_id=product.tid %}" class="btn btn-sm btn-pink">
+                <i class="bi bi-cart-plus-fill"></i> Cart
+              </a>
+              <a href="{% url 'buy_now' product_id=product.tid %}" class="btn btn-sm btn-outline-pink">
+                <i class="bi bi-bag-fill"></i> Buy
+              </a>
+            </div>
+            <a href="{% url 'product_details' product_id=product.tid %}" class="btn btn-link text-pink">
+              More details
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="btn-box mt-4 d-flex justify-content-center">
+      <nav>
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+          <li class="page-item active">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
 </section>
-<!-- end product section -->
+
 {% endblock %}

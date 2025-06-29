@@ -1,117 +1,160 @@
 {% extends 'buyers/base.html' %}
 {% load static %}
-{% block title %} contact {% endblock %}
+{% block title %}Contact{% endblock %}
+
 {% block body %}
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    body {
+        background: linear-gradient(135deg, #fff0f7, #ffeaf1);
+    }
 
-<head>
-    <title>SHINE Cosmetics - Contact</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    .contact-header {
+        background: transparent;
+        padding: 3rem 1rem;
+        text-align: center;
+        animation: fadeInDown 1s ease;
+    }
 
-    <link rel="apple-touch-icon" href="{% static 'buyers/img/apple-icon.png' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'buyers/img/favicon.ico' %}">
+    .contact-header h1 {
+        color: #e91e63;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
 
-    <link rel="stylesheet" href="{% static 'buyers/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'buyers/css/templatemo.css' %}">
-    <link rel="stylesheet" href="{% static 'buyers/css/custom.css' %}">
+    .contact-header p {
+        color: #555;
+        font-weight: 300;
+        font-size: 1rem;
+    }
 
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="{% static 'buyers/css/fontawesome.min.css' %}">
+    .contact-form-container {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(233, 30, 99, 0.1);
+        padding: 40px;
+        max-width: 800px;
+        margin: auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        animation: fadeInUp 1s ease;
+    }
 
-    <!-- Load map styles -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
-    <!--
-    
-TemplateMo 559 Zay Shop
+    .contact-form-container:hover {
+        transform: scale(1.01);
+        box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+    }
 
-https://templatemo.com/tm-559-zay-shop
+    .contact-form-container .form-control {
+        border: 1px solid #f8bbd0;
+        border-radius: 12px;
+        transition: 0.3s ease;
+    }
 
--->
-</head>
+    .contact-form-container .form-control:focus {
+        border-color: #ec407a;
+        box-shadow: 0 0 10px rgba(236, 64, 122, 0.3);
+        transform: scale(1.01);
+    }
 
-<body>
+    .contact-form-container label {
+        color: #880e4f;
+        font-weight: 500;
+        margin-bottom: 4px;
+    }
 
+    .contact-form-container textarea.form-control {
+        resize: vertical;
+    }
 
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    .contact-form-container button {
+        background-color: #e91e63;
+        border: none;
+        padding: 12px 28px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        color: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.2);
+    }
+
+    .contact-form-container button:hover {
+        background-color: #c2185b;
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 6px 16px rgba(194, 24, 91, 0.4);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<!-- Contact Header -->
+<div class="contact-header">
+    <h1>Contact Us</h1>
+    <p>Have questions or need help? Contact us anytime — we're here to assist you with your beauty needs!</p>
+</div>
+
+<!-- Success Message -->
+{% if messages %}
+<div class="container mb-3">
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Contact Form Section -->
+<div class="container py-4">
+    <div class="contact-form-container">
+        <form method="post" role="form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-md-6 mb-3">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
+                </div>
+                <div class="form-group col-md-6 mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" required>
+                </div>
             </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
+            <div class="mb-3">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject of your message" required>
+            </div>
+            <div class="mb-3">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="6"
+                    placeholder="Type your message here..." required></textarea>
+            </div>
+            <div class="text-end">
+                <button type="submit">Let’s Talk</button>
+            </div>
+        </form>
     </div>
+</div>
 
 
-    <!-- Start Content Page -->
-    <div class="container-fluid bg-light py-5">
-        <div class="col-md-6 m-auto text-center">
-            <h1 class="h1">Contact Us</h1>
-            <p>
-                Have questions or need help? Contact us anytime — we're here to assist you with your beauty needs!
-            </p>
-        </div>
-    </div>
-
-
-
-    <!-- Start Contact -->
-    <div class="container py-5">
-        <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
-                 {% csrf_token %}
-                <div class="row">
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputname">Name</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Name">
-                    </div>
-                    <div class="form-group col-md-6 mb-3">
-                        <label for="inputemail">Email</label>
-                        <input type="email" class="form-control mt-1" id="email" name="email" placeholder="Email">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Subject</label>
-                    <input type="text" class="form-control mt-1" id="subject" name="subject" placeholder="Subject">
-                </div>
-                <div class="mb-3">
-                    <label for="inputmessage">Message</label>
-                    <textarea class="form-control mt-1" id="message" name="message" placeholder="Message"
-                        rows="8"></textarea>
-                </div>
-                <div class="row">
-                    <div class="col text-end mt-2">
-                        <button type="submit" class="btn btn-success btn-lg px-3">Let’s Talk</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- End Contact -->
-
-
-    <!-- Start Script -->
-    <script src="{% static 'buyers/js/jquery-1.11.0.min.js' %}"></script>
-    <script src="{% static 'buyers/js/jquery-migrate-1.2.1.min.js' %}"></script>
-    <script src="{% static 'buyers/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'buyers/js/templatemo.js' %}"></script>
-    <script src="{% static 'buyers/js/custom.js' %}"></script>
-    <!-- End Script -->
-</body>
-
-</html>
 {% endblock %}

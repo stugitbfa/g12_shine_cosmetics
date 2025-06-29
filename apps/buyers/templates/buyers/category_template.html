@@ -2,23 +2,127 @@
 {% load static %}
 
 {% block title %}{{ category }}{% endblock %}
+
 {% block body %}
-<div class="container py-5">
+<style>
+    /* Page background */
+    body {
+        background: linear-gradient(to bottom, #fff0f5 0%, #ffe4ec 100%);
+    }
+
+    /* Section container with padding and soft background */
+    .category-section {
+        background-color: #fff6f9;
+        border-radius: 12px;
+        padding: 40px 25px;
+        box-shadow: 0 0 15px rgba(255, 182, 193, 0.2);
+    }
+
+    /* Pink theme styles */
+    .btn-pink {
+        background-color: #e91e63;
+        color: white;
+        border: none;
+    }
+    .btn-pink:hover {
+        background-color: #d81b60;
+        color: white;
+    }
+    .btn-outline-pink {
+        border: 1px solid #e91e63;
+        color: #e91e63;
+    }
+    .btn-outline-pink:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+    .badge-pink {
+        background-color: #f8bbd0;
+        color: #880e4f;
+        padding: 0.4em 0.8em;
+        font-size: 0.95em;
+    }
+
+    /* Card styling */
+    .card {
+        border: 1px solid #f8bbd0;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: #fff;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 10px #f8bbd0;
+    }
+    .card-img-top {
+        height: 180px;
+        object-fit: contain;
+        padding: 10px;
+    }
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 15px;
+    }
+    .card-title {
+        margin-bottom: 10px;
+        font-weight: 600;
+        word-break: break-word;
+    }
+    .card-text {
+        font-weight: bold;
+        color: #e91e63;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+    .btn-group-center {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: auto;
+    }
+
+    /* Pagination styling */
+    .pagination .page-link {
+        color: #e91e63;
+        border-color: #f8bbd0;
+    }
+    .pagination .page-link:hover {
+        background-color: #f8bbd0;
+        color: #880e4f;
+    }
+</style>
+
+<div class="container py-5 category-section">
     <h1 class="text-center mb-4">{{ category }} Products</h1>
     <div class="row justify-content-center">
         {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
+            <div class="col-md-4 mb-4 d-flex">
+                <div class="card w-100">
                     <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
-                    <div class="card-body text-center">
+                    <div class="card-body">
                         <h5 class="card-title">{{ product.title }}</h5>
                         <p class="card-text">₹{{ product.price }}</p>
-                        <a href="{% url 'product_details' product.tid %}" class="btn btn-outline-dark">View Details</a>
+                        <div class="btn-group-center">
+                            <a href="{% url 'product_details' product.tid %}" class="btn btn-outline-pink btn-sm">
+                                View Details
+                            </a>
+                            <a href="{% url 'add_to_cart' product_id=product.tid %}" class="btn btn-pink btn-sm">
+                                <i class="bi bi-cart-plus-fill"></i> Add to Cart
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p class="text-center">No products found in this category.</p>
+            <p class="text-center text-muted">No products found in this category.</p>
         {% endfor %}
     </div>
 
@@ -27,11 +131,17 @@
         <nav>
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
                 {% endif %}
-                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+                <li class="page-item disabled">
+                    <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                </li>
                 {% if page_obj.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
                 {% endif %}
             </ul>
         </nav>

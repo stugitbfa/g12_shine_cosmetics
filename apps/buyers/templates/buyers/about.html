@@ -10,8 +10,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="{% static 'buyers/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'buyers/img/favicon.ico">
+    <link rel="apple-touch-icon" href="{% static 'buyers/img/apple-icon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'buyers/img/favicon.ico' %}">
 
     <link rel="stylesheet" href="{% static 'buyers/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'buyers/css/templatemo.css' %}">
@@ -21,17 +21,9 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="{% static 'buyers/css/fontawesome.min.css' %}">
-    <!--
-    
-TemplateMo 559 Zay Shop
-
-https://templatemo.com/tm-559-zay-shop
-
--->
 </head>
 
 <body>
-
 
     <!-- Modal -->
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
@@ -51,8 +43,6 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </div>
 
-
-
     <section class="bg-success py-5">
         <div class="container">
             <div class="row align-items-center py-5">
@@ -71,58 +61,70 @@ https://templatemo.com/tm-559-zay-shop
                         Join the SHINE community and let your inner beauty shine through, every day.
                     </p>
                 </div>
-                
             </div>
         </div>
     </section>
-    <!-- Close Banner -->
 
     <!-- Start Section -->
-    <section class="container py-5">
-        <div class="row text-center pt-5 pb-3">
-            <div class="col-lg-6 m-auto">
-                <h1 class="h1">Our Services</h1>
-                <p>
-                    SHINE Cosmetics offers premium cruelty-free products, expert advice, fast delivery, easy returns,
-                    and exclusive member perks.
-                </p>
+<section class="container py-5">
+    <div class="row text-center pt-5 pb-3">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1">Our Services</h1>
+            <p>
+                SHINE Cosmetics offers premium cruelty-free products, expert advice, fast delivery, easy returns,
+                and exclusive member perks.
+            </p>
+        </div>
+    </div>
+
+    <div class="row text-center">
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="h-100 py-4 px-3 shadow rounded d-flex flex-column align-items-center justify-content-center">
+                <div class="h1 text-success mb-3">
+                    <i class="fa fa-truck fa-lg"></i>
+                </div>
+                <a href="{% url 'delivery' %}" class="text-decoration-none">
+                    <h5 class="mt-2">Delivery Services</h5>
+                </a>
             </div>
         </div>
-        <div class="row">
 
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-truck fa-lg"></i></div>
-                    <h2 class="h5 mt-4 text-center">Delivery Services</h2>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="h-100 py-4 px-3 shadow rounded d-flex flex-column align-items-center justify-content-center">
+                <div class="h1 text-success mb-3">
+                    <i class="fas fa-exchange-alt fa-lg"></i>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fas fa-exchange-alt"></i></div>
-                    <h2 class="h5 mt-4 text-center">Shipping & Return</h2>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-percent"></i></div>
-                    <h2 class="h5 mt-4 text-center">Promotion</h2>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 pb-5">
-                <div class="h-100 py-5 services-icon-wap shadow">
-                    <div class="h1 text-success text-center"><i class="fa fa-user"></i></div>
-                    <h2 class="h5 mt-4 text-center">24 Hours Service</h2>
-                </div>
+                <a href="{% url 'sr' %}" class="text-decoration-none">
+                    <h5 class="mt-2">Shipping & Return</h5>
+                </a>
             </div>
         </div>
-    </section>
-    <!-- End Section -->
 
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="h-100 py-4 px-3 shadow rounded d-flex flex-column align-items-center justify-content-center">
+                <a href="{% url 'discount' %}" class="text-decoration-none text-center">
+                    <img src="{% static 'buyers/img/discount.jpg' %}" alt="10% Discount" class="img-fluid mb-3"
+                        style="max-height: 80px;">
+                    <h5 class="mt-2">10% Discount</h5>
+                </a>
+            </div>
+        </div>
 
-    
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="h-100 py-4 px-3 shadow rounded d-flex flex-column align-items-center justify-content-center">
+                <div class="h1 text-success mb-3">
+                    <i class="fa fa-user"></i>
+                </div>
+                <a href="{% url 'hour' %}" class="text-decoration-none">
+                    <h5 class="mt-2">24 Hours Service</h5>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- End Section -->
 
     <!-- Start Script -->
     <script src="{% static 'buyers/js/jquery-1.11.0.min.js' %}"></script>

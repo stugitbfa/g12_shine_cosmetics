@@ -1,0 +1,135 @@
+{% extends 'buyers/base.html' %}
+{% load static %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #fff0f7;
+    }
+
+    h3 i {
+        color: #e91e63;
+    }
+
+    .table thead {
+        background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+        color: white;
+    }
+
+    .badge.bg-warning {
+        background-color: #fce4ec !important;
+        color: #d81b60 !important;
+        border: 1px solid #f8bbd0;
+    }
+
+    .badge.bg-primary {
+        background-color: #f48fb1 !important;
+    }
+
+    .badge.bg-info {
+        background-color: #f8bbd0 !important;
+        color: #d81b60 !important;
+    }
+
+    .badge.bg-success {
+        background-color: #e91e63 !important;
+    }
+
+    .badge.bg-danger {
+        background-color: #c2185b !important;
+    }
+
+    .btn-outline-pink {
+        color: #e91e63;
+        border: 2px solid #e91e63;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-pink:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+
+    .alert-warning {
+        background-color: #fff0f7;
+        border: 1px dashed #f8bbd0;
+        color: #d81b60;
+    }
+
+    .btn-outline-dark {
+        border: 2px solid #e91e63;
+        color: #e91e63;
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <h3 class="mb-4"><i class="bi bi-bag-check-fill"></i> My Orders</h3>
+
+    {% if orders %}
+    <div class="table-responsive shadow rounded">
+        <table class="table table-bordered align-middle table-hover">
+            <thead class="text-center">
+                <tr>
+                    <th>#</th>
+                    <th>Order ID</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-break">{{ order.tid }}</td>
+                    <td><strong>₹{{ order.total_amount }}</strong></td>
+                    <td>
+                        {% if order.status == "pending" %}
+                        <span class="badge bg-warning"><i class="bi bi-hourglass-split"></i> {{ order.status|title }}</span>
+                        {% elif order.status == "processing" %}
+                        <span class="badge bg-primary"><i class="bi bi-gear-wide-connected"></i> {{ order.status|title }}</span>
+                        {% elif order.status == "shipped" %}
+                        <span class="badge bg-info"><i class="bi bi-truck"></i> {{ order.status|title }}</span>
+                        {% elif order.status == "delivered" %}
+                        <span class="badge bg-success"><i class="bi bi-check-circle"></i> {{ order.status|title }}</span>
+                        {% elif order.status == "cancelled" %}
+                        <span class="badge bg-danger"><i class="bi bi-x-circle"></i> {{ order.status|title }}</span>
+                        {% else %}
+                        <span class="badge bg-secondary">{{ order.status|title }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ order.payment_method }}</td>
+                    <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'order_detail' order.tid %}" class="btn btn-sm btn-outline-pink">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-warning mt-4 text-center">
+        <i class="bi bi-bag-x-fill"></i> You haven't placed any orders yet.
+        <div class="mt-3">
+            <a href="{% url 'product' %}" class="btn btn-outline-dark">
+                <i class="bi bi-arrow-left"></i> Continue Shopping
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

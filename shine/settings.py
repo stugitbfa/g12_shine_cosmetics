@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.buyers',
+    
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shinecosmetics35@gmail.com'
 EMAIL_HOST_PASSWORD = 'iqoa zygg urtv hypd'
 EMAIL_PORT = 587
+
+# Razorpay credentials
+RZP_KEY_ID = "your_actual_key_id"
+RZP_KEY_SECRET = "your_actual_key_secret"

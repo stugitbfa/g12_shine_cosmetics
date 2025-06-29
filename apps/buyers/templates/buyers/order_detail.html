@@ -1,0 +1,160 @@
+{% extends 'buyers/base.html' %}
+{% load static %}
+
+{% block title %}Order #{{ order.tid }}{% endblock %}
+
+{% block body %}
+
+<style>
+    body {
+        background-color: #fff0f7;
+    }
+
+    h3 i {
+        color: #e91e63;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .badge {
+        padding: 0.4em 0.7em;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+    }
+
+    .badge-pink-light {
+        background-color: #fce4ec;
+        color: #d81b60;
+        border: 1px solid #f8bbd0;
+    }
+
+    .badge-pink-mid {
+        background-color: #f48fb1;
+        color: white;
+    }
+
+    .badge-pink-dark {
+        background-color: #e91e63;
+        color: white;
+    }
+
+    .badge-pink-deep {
+        background-color: #c2185b;
+        color: white;
+    }
+
+    .btn-pink-outline {
+        color: #e91e63;
+        border: 2px solid #e91e63;
+        transition: 0.3s;
+    }
+
+    .btn-pink-outline:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+
+    .table thead {
+        background-color: #fff5f9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #fff0f7;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <h3 class="mb-4"><i class="bi bi-receipt"></i> Order Details</h3>
+
+    <!-- Order Summary -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header">
+            <i class="bi bi-info-circle-fill"></i> Order Summary
+        </div>
+        <div class="card-body">
+            <p><strong><i class="bi bi-hash"></i> Order ID:</strong> {{ order.tid }}</p>
+            <p>
+                <strong><i class="bi bi-flag-fill"></i> Status:</strong>
+                {% if order.status == "pending" %}
+                <span class="badge badge-pink-light">{{ order.status|title }}</span>
+                {% elif order.status == "processing" %}
+                <span class="badge badge-pink-mid">{{ order.status|title }}</span>
+                {% elif order.status == "shipped" %}
+                <span class="badge badge-pink-light">{{ order.status|title }}</span>
+                {% elif order.status == "delivered" %}
+                <span class="badge badge-pink-dark">{{ order.status|title }}</span>
+                {% elif order.status == "cancelled" %}
+                <span class="badge badge-pink-deep">{{ order.status|title }}</span>
+                {% else %}
+                <span class="badge bg-secondary">{{ order.status|title }}</span>
+                {% endif %}
+            </p>
+            <p><strong><i class="bi bi-cash-coin"></i> Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            <p><strong><i class="bi bi-wallet2"></i> Payment Method:</strong> {{ order.payment_method }}</p>
+            <p class="text-break"><strong><i class="bi bi-geo-alt-fill"></i> Shipping Address:</strong> {{ order.address }}</p>
+            <p><strong><i class="bi bi-calendar-event"></i> Ordered On:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
+
+            {% if order.delivery_date %}
+            <p><strong><i class="bi bi-calendar-check"></i> Delivery Date:</strong> {{ order.delivery_date|date:"M d, Y" }}</p>
+            {% else %}
+            <p><strong><i class="bi bi-calendar-check"></i> Delivery Date:</strong> Not Assigned</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Ordered Items -->
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <i class="bi bi-box-seam"></i> Ordered Items
+        </div>
+        <div class="card-body">
+            {% if order.order_items.all %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.order_items.all %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="img-thumbnail"
+                                    style="width: 80px; height: 80px; object-fit: cover;">
+                            </td>
+                            <td>{{ item.product.title }}</td>
+                            <td>₹{{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td><strong>₹{{ item.total_price }}</strong></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p class="text-muted">No items found in this order.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="mt-4 text-end">
+        <a href="{% url 'order_list' %}" class="btn btn-pink-outline">
+            <i class="bi bi-arrow-left"></i> Back to Orders
+        </a>
+    </div>
+</div>
+
+{% endblock %}

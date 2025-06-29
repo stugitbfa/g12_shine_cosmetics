@@ -3,28 +3,72 @@
 <html lang="en">
 
 <head>
-    <title>{% block title %} {% endblock %}shine eCommerce</title>
+    <title>{% block title %}{% endblock %} SHINE eCommerce</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="{% static 'img/apple-icon.png' %}">
-    <link rel="shortcut icon" type="image/x-icon" href="a{% static 'img/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 
     <link rel="stylesheet" href="{% static 'buyers/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'buyers/css/templatemo.css' %}">
     <link rel="stylesheet" href="{% static 'buyers/css/custom.css' %}">
-
-    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="{% static 'buyers/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="{% static 'buyers/css/fontawesome.min.css' %}">
-    <!--
-    
-TemplateMo 559 Zay Shop
 
-https://templatemo.com/tm-559-zay-shop
+    <style>
+        .category-dropdown {
+            background-color: #fff0f7;
+            border-radius: 10px;
+            border: 1px solid #f8bbd0;
+            padding: 5px;
+        }
 
--->
+        .category-dropdown .dropdown-item {
+            color: #e91e63;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            transform-origin: left center;
+        }
+
+        .category-dropdown .dropdown-item:hover {
+            background-color: #ffe4ec;
+            color: #880e4f;
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu.category-dropdown {
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+        }
+
+        /* Search bar styling */
+        .search-form input[type="text"] {
+            border: 1px solid #f8bbd0;
+            border-radius: 20px;
+            padding: 5px 12px;
+            width: 180px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .search-form input[type="text"]:focus {
+            width: 220px;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+        }
+
+        .search-form button {
+            border: none;
+            background: none;
+            color: #e91e63;
+        }
+
+        .search-form button:hover {
+            color: #c2185b;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,55 +95,66 @@ https://templatemo.com/tm-559-zay-shop
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a href="{% url 'category_view' 'Makeup' %}">Makeup</a></li>
-                            <li><a href="{% url 'category_view' 'Eyes' %}">Eyes</a></li>
-                            <li><a href="{% url 'category_view' 'Lips' %}">Lips</a></li>
-                            <li><a href="{% url 'category_view' 'Nails' %}">Nails</a></li>
+                        <ul class="dropdown-menu category-dropdown" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'category_view' 'Makeup' %}">Makeup</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category_view' 'Eyes' %}">Eyes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category_view' 'Lips' %}">Lips</a></li>
+                            <li><a class="dropdown-item" href="{% url 'category_view' 'Nails' %}">Nails</a></li>
                         </ul>
                     </li>
-
 
                     <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
                 </ul>
 
-                <div class="d-flex align-items-center">
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
-                        data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark me-3"></i>
-                    </a>
-                    <a class="nav-icon position-relative" href="{% url 'profile' %}">
-                        <i class="fa fa-fw fa-user text-dark"></i>
-                    </a>
-                </div>
+                <!-- Pink Themed Search Bar -->
+                <form class="d-flex search-form" action="{% url 'product_search' %}" method="GET">
+                    <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q }}">
+                    <input type="number" name="min_price" placeholder="Min ₹" min="0" style="width: 80px;"
+                        value="{{ request.GET.min_price }}">
+                    <input type="number" name="max_price" placeholder="Max ₹" min="0" style="width: 80px;"
+                        value="{{ request.GET.max_price }}">
+                    <button type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+
+                <!-- Icons -->
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="{% url 'cart_list' %}" title="Cart">
+                            <i class="bi bi-cart-fill fs-5"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}" title="Account">
+                            <i class="bi bi-person-fill fs-5"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
         </div>
     </nav>
     <!-- End Header -->
 
-
     {% block body %}
     {% endblock %}
 
-    <!-- Start Footer -->
+    <!-- Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
-
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">SHINE Cosmetics</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw" style="color: #e84cb9;"></i>
+                        <li><i class="fas fa-map-marker-alt fa-fw" style="color: #e84cb9;"></i>
                             <span style="color: #e7c5dd;">123 Consectetur at ligula 10660</span>
                         </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
+                        <li><i class="fa fa-phone fa-fw"></i>
                             <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                         </li>
-                        <li>
-                            <i class="fa fa-envelope fa-fw"></i>
+                        <li><i class="fa fa-envelope fa-fw"></i>
                             <a class="text-decoration-none"
                                 href="mailto:shinecosmetics35@.com">shinecosmetics35@.com</a>
                         </li>
@@ -124,8 +179,6 @@ https://templatemo.com/tm-559-zay-shop
                         <li><a class="text-decoration-none" href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </div>
-
-
             </div>
 
             <div class="row text-light mb-4">
@@ -152,14 +205,7 @@ https://templatemo.com/tm-559-zay-shop
                         </li>
                     </ul>
                 </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email address</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
-                            placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
@@ -168,24 +214,21 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2025 SHINE Cosmetics
-                            | Designed by AYDTI Students
+                            Copyright &copy; 2025 SHINE Cosmetics |
+                            Designed by AYDTI Students
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
     </footer>
-    <!-- End Footer -->
 
-    <!-- Start Script -->
+    <!-- Scripts -->
     <script src="{% static 'buyers/js/jquery-1.11.0.min.js' %}"></script>
     <script src="{% static 'buyers/js/jquery-migrate-1.2.1.min.js' %}"></script>
     <script src="{% static 'buyers/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'buyers/js/templatemo.js' %}"></script>
     <script src="{% static 'buyers/js/custom.js' %}"></script>
-    <!-- End Script -->
 </body>
 
 </html>
