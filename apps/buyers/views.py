@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta, time as dt_time
 import random
+<<<<<<< HEAD
 from random import randint
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -17,6 +18,13 @@ from decimal import Decimal
 import razorpay
 
 client = razorpay.Client(auth=(settings.RZP_KEY_ID, settings.RZP_KEY_SECRET))
+=======
+from .models import *
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+# from django.utils import send_order_confirmation_email
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 
 from .models import *
 
@@ -66,16 +74,29 @@ def signup(request):
         password_ = request.POST['password']
         confirm_password_ = request.POST['confirm_password']
 
+<<<<<<< HEAD
+=======
+      
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
         # ✅ Check if email already exists
         if Customer.objects.filter(email=email_).exists():
             messages.error(request, "Email already registered.")
             return redirect('signup')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
         # ✅ Check if passwords match
         if password_ != confirm_password_:
             messages.error(request, "Passwords do not match.")
             return redirect('signup')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
         # ✅ Create new customer
         new_customer = Customer.objects.create(
             email=email_,
@@ -114,6 +135,7 @@ def email_verify(request):
         email = request.POST.get('email')
         otp = request.POST.get('otp')
 
+<<<<<<< HEAD
         try:
             customer = Customer.objects.get(email=email)
             if otp == customer.otp:
@@ -129,6 +151,25 @@ def email_verify(request):
 
     return redirect('signup')
 
+=======
+        if not Customer.objects.filter(email=email_).exists():
+            messages.error(request, "Email does not exist.")
+            return render(request, 'buyers/email_verify.html', {'email': email_})
+
+        get_customer = Customer.objects.get(email=email_)
+
+        if otp_ != get_customer.otp:
+            messages.error(request, "Invalid OTP.")
+            return render(request, 'buyers/email_verify.html', {'email': email_})
+
+        get_customer.is_active = True
+        get_customer.save()
+        messages.success(request, "Email verified successfully! You can login now.")
+        return redirect('login')
+
+    return render(request, 'buyers/email_verify.html')
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 def forgot_password(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -163,6 +204,7 @@ Team SHINE Cosmetics
 
     return render(request, 'buyers/forgot_password.html')
 
+<<<<<<< HEAD
 def forgot_otp_verify(request):
     email = request.GET.get('email') or request.POST.get('email')
 
@@ -220,12 +262,18 @@ def reset_password(request):
             return redirect('forgot_password')
 
     return render(request, 'buyers/reset_password.html')
+=======
+def otp_verification(request):
+    return render(request, 'buyers/otp_verification.html')
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 
 def index(request):
     return render(request, 'buyers/index.html')
 
 def about(request):
     return render(request, 'buyers/about.html')
+<<<<<<< HEAD
 def discount(request):
     return render(request, 'buyers/discount.html')
 
@@ -241,6 +289,272 @@ def sr(request):
 def categories(request):
     return render(request, 'buyers/category.html')
 
+=======
+
+def contact(request):
+    if request.method == 'POST':
+        ContactMessage.objects.create(
+            name=request.POST['name'],
+            email=request.POST['email'],
+            subject=request.POST['subject'],
+            message=request.POST['message']
+        )
+        messages.success(request, "Message sent successfully!")
+        return redirect('contact')
+
+    return render(request, 'buyers/contact.html')
+@login_required
+def cart_list(request):
+    customer = request.session['customer_id'] # or use session
+    cart_items = Cart.objects.filter(customer=customer)
+    total = sum(item.total_amount for item in cart_items)
+    return render(request, 'buyers/cart.html', {'cart_items': cart_items, 'total': total})
+# @login_required
+# def cart_list(request):
+#     customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+#     cart_items = Cart.objects.filter(customer=customer)
+#     total = sum(item.total_amount for item in cart_items)
+#     return render(request, 'buyers/cart.html', {'cart_items': cart_items, 'total': total})
+@login_required
+def buy(request, product_id):
+    customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+    product = get_object_or_404(Product, tid=product_id)
+
+    cart_item, created = Cart.objects.get_or_create(customer=customer, product=product)
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    messages.success(request, f"Added {product.title} to cart.")
+    return redirect('cart_list')
+    
+@login_required
+def add_to_cart(request, product_id):
+    customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+    product = get_object_or_404(Product, tid=product_id)
+
+    cart_item, created = Cart.objects.get_or_create(customer=customer, product=product)
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    messages.success(request, f"Added {product.title} to cart.")
+    # return redirect('cart_list')
+    return JsonResponse({"message":"item added Succesfully"}, status=204)
+    
+
+@login_required
+def update_cart_item(request, cart_id):
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart_item = get_object_or_404(Cart, tid=cart_id)
+
+        if quantity <= 0:
+            cart_item.delete()
+            messages.info(request, "Item removed from cart.")
+        else:
+            cart_item.quantity = quantity
+            cart_item.save()
+            messages.success(request, "Cart updated.")
+
+    return redirect('cart_list')
+
+@login_required
+def delete_cart_item(request, cart_id):
+    cart_item = get_object_or_404(Cart, tid=cart_id)
+    cart_item.delete()
+    messages.success(request, "Item removed from cart.")
+    return redirect('cart_list')
+
+@login_required
+def checkout(request):
+    customer_id = request.session.get('customer_id')
+    customer = get_object_or_404(Customer, tid=customer_id)
+    cart_items = Cart.objects.filter(customer=customer)
+
+    if not cart_items.exists():
+        return redirect('cart_list')
+
+    addresses = Address.objects.filter(customer=customer)
+    primary_address = addresses.filter(is_primary=True).first()
+
+    total = sum(item.total_amount for item in cart_items)
+
+    if not cart_items.exists():
+        messages.warning(request, "Your cart is empty. Please add items before checkout.")
+        return redirect('cart_list')
+
+    return render(request, 'buyers/checkout.html', {
+        'cart_items': cart_items,
+        'total': total,
+        'addresses': addresses,
+        'primary_address': primary_address,
+    })
+
+@login_required
+def order_list(request):
+    customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+    orders = Order.objects.filter(customer=customer).order_by('-created_at')
+    return render(request, 'buyers/order_list.html', {'orders': orders})
+
+def send_order_confirmation_email(order, customer_email):
+    """Send an order confirmation email."""
+    context = {
+        'order': order,
+        'items': order.items.all(),
+    }
+    subject = f"Your Order #{order.id} is Confirmed!"
+
+    html_message = render_to_string('emails/order_confirmation.html', context)
+    plain_message = strip_tags(html_message)
+
+    send_mail(
+        subject,
+        plain_message,
+        None,  # Will use DEFAULT_FROM_EMAIL
+        [customer_email],
+        html_message=html_message,
+    )
+    # order = Order.objects.create(...)
+    # send_order_confirmation_email(order, Order.email)
+# Decorator to require login
+
+@login_required
+def create_order(request):
+    if request.method == 'POST':
+        customer_id = request.session.get('customer_id')
+        customer = get_object_or_404(Customer, tid=customer_id)
+        cart_items = Cart.objects.filter(customer=customer)
+
+        address = request.POST.get('address')
+        payment_method = request.POST.get('payment_method')
+        delivery_type = request.POST.get('delivery_type')
+        delivery_date_str = request.POST.get('delivery_date')
+        delivery_time_str = request.POST.get('delivery_time')
+
+        tomorrow = timezone.now().date() + timedelta(days=1)
+        total = sum(item.total_amount for item in cart_items)
+
+        # Defaults
+        delivery_date = None
+        delivery_time = None
+
+        if delivery_type == 'urgent':
+            # Validate urgent delivery
+            try:
+                delivery_date = datetime.strptime(delivery_date_str, '%Y-%m-%d').date()
+                delivery_time = datetime.strptime(delivery_time_str, '%H:%M').time()
+            except Exception:
+                messages.error(request, "Urgent delivery requires valid date and time.")
+                return redirect('checkout')
+
+            if delivery_date < tomorrow:
+                messages.error(request, "Urgent delivery must be scheduled from tomorrow.")
+                return redirect('checkout')
+
+            if not (dt_time(8, 0) <= delivery_time <= dt_time(20, 0)):
+                messages.error(request, "Urgent delivery time must be between 08:00 AM and 08:00 PM.")
+                return redirect('checkout')
+
+            total += 49.00  # Add urgent charge
+
+        order = Order.objects.create(
+            customer=customer,
+            total_amount=total,
+            address=address,
+            payment_method=payment_method,
+            delivery_type=delivery_type,
+            delivery_date=delivery_date,
+            delivery_time=delivery_time
+        )
+        # customer_email = order
+        # send_order_confirmation_email(order, customer_email)
+        
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+        cart_items.delete()
+
+        if delivery_type == 'urgent':
+            messages.success(request, "Urgent order placed with ₹49.00 extra charge.")
+        else:
+            messages.success(request, "Scheduled order placed successfully!")
+
+        return redirect('order_list')
+
+    return redirect('checkout')
+# @login_required
+# def create_order(request):
+#     customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+#     cart_items = Cart.objects.filter(customer=customer)
+
+#     if not cart_items.exists():
+#         messages.warning(request, "Your cart is empty.")
+#         return redirect('cart_list')
+
+#     total_amount = sum(item.total_amount for item in cart_items)
+
+#     order = Order.objects.create(
+#         customer=customer,
+#         total_amount=total_amount,
+#         address="Sample Address",  # replace with real address from checkout
+#         payment_method="COD"
+#     )
+
+#     for item in cart_items:
+#         OrderItem.objects.create(
+#             order=order,
+#             product=item.product,
+#             quantity=item.quantity,
+#             price=item.product.price
+#         )
+#     cart_items.delete()
+
+#     messages.success(request, f"Order #{order.tid} placed successfully.")
+#     return redirect('order_list')
+
+
+@login_required
+def order_detail(request, order_id):
+    customer = get_object_or_404(Customer, tid=request.session.get('customer_id'))
+    order = get_object_or_404(Order, tid=order_id, customer=customer)
+    order_items = order.order_items.all()
+
+    context = {
+        'order': order,
+        'order_items': order_items,
+    }
+    return render(request, 'buyers/order_detail.html', context)
+
+@login_required
+def profile(request):
+    # Get current customer by session
+    customer = get_object_or_404(Customer, tid=request.session['customer_id'])
+
+    # Try fetching the primary address, or None if not available
+    try:
+        primary_address = Address.objects.get(customer=customer, is_primary=True)
+    except Address.DoesNotExist:
+        primary_address = None
+
+    context = {
+        'customer': customer,
+        'primary_address': primary_address,
+        'has_primary': primary_address is not None
+    }
+    return render(request, 'buyers/profile.html', context)
+
+
+def categories(request):
+    return render(request, 'buyers/category.html')
+    
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 def category_view(request, category_name):
     category = get_object_or_404(Category, name__iexact=category_name)
     products = Product.objects.filter(category=category, is_available=True).order_by('-created_at')
@@ -254,7 +568,14 @@ def category_view(request, category_name):
         'products': page_obj,
         'page_obj': page_obj,
     })
+def product(request):
+    products = Product.objects.all()
+    paginator = Paginator(products, 8)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'buyers/product.html', {'page_obj': page_obj})
 
+<<<<<<< HEAD
 def contact(request):
     if request.method == 'POST':
         ContactMessage.objects.create(
@@ -496,6 +817,12 @@ def product_details(request, product_id):
     product = get_object_or_404(Product, tid=product_id)
     return render(request, 'buyers/product_details.html', {'product': product})
 
+=======
+def product_details(request, product_id):
+    product = get_object_or_404(Product, tid=product_id)
+    return render(request, 'buyers/product_details.html', {'product': product})
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 # Payment view stub (depends on your payment gateway)
 @login_required
 def pay(request, amt):
@@ -529,6 +856,7 @@ def add_address(request):
         messages.success(request, "Address added successfully.")
 
         return redirect('profile')
+<<<<<<< HEAD
 
 @login_required
 def buy_now(request, product_id):
@@ -569,6 +897,8 @@ def product_search(request):
         'max_price': max_price,
     })
 
+=======
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 @login_required
 def logout(request):
     del request.session['customer_id']

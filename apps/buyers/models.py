@@ -1,7 +1,24 @@
 from django.db import models
 import uuid
+<<<<<<< HEAD
 from datetime import timedelta, date
 import random
+=======
+
+# # recent changes
+# from django.urls import reverse_lazy
+# from django.contrib.auth.views import PasswordResetView
+# from django.contrib.messages.views import SuccessMessageMixin
+# class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+#     template_name = 'buyers/forgot_password.html'
+#     email_template_name = 'buyers/forgot_password_email.html'
+#     subject_template_name = 'buyers/forgot_password_subject'
+#     success_message = "We've emailed you instructions for setting your password, " \
+#                       "if an account exists with the email you entered. You should receive them shortly." \
+#                       " If you don't receive an email, " \
+#                       "please make sure you've entered the address you registered with, and check your spam folder."
+#     success_url = reverse_lazy('users-home')
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 
 class BaseModel(models.Model):
     tid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -116,6 +133,7 @@ class Order(BaseModel):
     delivery_date = models.DateField(null=True, blank=True)
     delivery_time = models.TimeField(null=True, blank=True)
 
+<<<<<<< HEAD
     def save(self, *args, **kwargs):
         # Auto-assign random delivery date between 2 to 5 days for scheduled deliveries
         if self.delivery_type == 'scheduled' and not self.delivery_date:
@@ -145,6 +163,16 @@ class OrderItem(BaseModel):
 #     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
 #     quantity = models.PositiveIntegerField(default=1)
 #     price = models.DecimalField(max_digits=10, decimal_places=2)  # price at time of purchase
+=======
+    def __str__(self):
+        return f"Order #{self.tid} - {self.customer.email}"
+
+# class OrderItem(BaseModel):
+#     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
+#     product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+#     quantity = models.PositiveIntegerField(default=1)
+#     price = models.DecimalField(max_digits=10, decimal_places=2)  # price at purchase time
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 
 #     @property
 #     def total_price(self):
@@ -153,12 +181,15 @@ class OrderItem(BaseModel):
 #     def __str__(self):
 #         return f"{self.product.title} x {self.quantity}"
 
+<<<<<<< HEAD
 # CONTACT_STATUS_CHOICES = [
 #     ('new', 'New'),
 #     ('in_progress', 'In Progress'),
 #     ('resolved', 'Resolved'),
 # ]
 
+=======
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 class OrderItem(BaseModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)

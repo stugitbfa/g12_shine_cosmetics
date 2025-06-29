@@ -2,6 +2,7 @@
 {% block title %}Checkout{% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 
 <style>
     body {
@@ -200,4 +201,122 @@
     };
 </script>
 
+=======
+<div class="container mt-5 mb-5">
+  <h3 class="text-danger"><i class="bi bi-credit-card-2-back-fill"></i> Checkout</h3>
+  <hr>
+
+  <form method="POST" action="{% url 'create_order' %}">
+    {% csrf_token %}
+
+    <!-- Address -->
+    <div class="mb-4">
+      <h5><i class="bi bi-geo-alt"></i> Select Address</h5>
+      <div class="row">
+        {% for addr in addresses %}
+        <div class="col-12 mb-2">
+          <div class="form-check bg-light border rounded p-3 text-wrap">
+            <input class="form-check-input" type="radio" name="address" id="addr{{ forloop.counter }}" 
+                   value="{{ addr.house_no }}, {{ addr.area_street }}, {{ addr.city }}, {{ addr.state }} - {{ addr.pincode }}, {{ addr.country }}" 
+                   {% if addr.is_primary %}checked{% endif %}>
+            <label class="form-check-label ms-2 w-100" for="addr{{ forloop.counter }}">
+              <strong>{{ addr.full_name }}</strong><br>
+              {{ addr.house_no }}, {{ addr.area_street }},<br>
+              {{ addr.city }} - {{ addr.pincode }}, {{ addr.state }}, {{ addr.country }}
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Delivery Type -->
+    <div class="mb-4">
+      <h5><i class="bi bi-truck"></i> Delivery Type</h5>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="delivery_type" id="scheduled" value="scheduled" checked>
+        <label class="form-check-label" for="scheduled">Scheduled Delivery (Free)</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="delivery_type" id="urgent" value="urgent">
+        <label class="form-check-label" for="urgent">Urgent Delivery <span class="text-danger">(₹49 extra)</span></label>
+      </div>
+    </div>
+
+    <!-- Urgent Delivery Schedule -->
+    <div class="mb-4" id="urgentScheduleBox" style="display: none;">
+      <h5><i class="bi bi-calendar-check"></i> Urgent Delivery Schedule</h5>
+      <p class="text-muted small">
+        Urgent delivery is available <strong>from tomorrow</strong> between <strong>08:00 AM</strong> and <strong>08:00 PM</strong>.
+      </p>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label for="delivery_date">Delivery Date</label>
+          <input type="date" id="delivery_date" name="delivery_date" class="form-control">
+        </div>
+        <div class="col-md-6 mb-2">
+          <label for="delivery_time">Delivery Time</label>
+          <input type="time" id="delivery_time" name="delivery_time" class="form-control" min="08:00" max="20:00">
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="mb-4">
+      <h5><i class="bi bi-wallet"></i> Payment Method</h5>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" id="cod" value="COD" checked>
+        <label class="form-check-label" for="cod">Cash on Delivery</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="payment_method" id="upi" value="UPI">
+        <label class="form-check-label" for="upi">UPI / Online</label>
+      </div>
+    </div>
+
+    <!-- Order Submit -->
+    <div class="text-end">
+      <button type="submit" class="btn btn-danger btn-lg">
+        <i class="bi bi-bag-check-fill"></i> Place Order (₹<span id="totalDisplay">{{ total }}</span>)
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- JS Logic -->
+<script>
+  const scheduledRadio = document.getElementById('scheduled');
+  const urgentRadio = document.getElementById('urgent');
+  const urgentBox = document.getElementById('urgentScheduleBox');
+  const deliveryDate = document.getElementById('delivery_date');
+  const totalDisplay = document.getElementById('totalDisplay');
+  const baseTotal = {{ total }};
+  const urgentCharge = 49.00;
+
+  function setTomorrowMinDate() {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+    const minStr = date.toISOString().split('T')[0];
+    deliveryDate.min = minStr;
+    deliveryDate.value = minStr;
+  }
+
+  function toggleUrgentBox() {
+    if (urgentRadio.checked) {
+      urgentBox.style.display = 'block';
+      setTomorrowMinDate();
+      totalDisplay.innerText = (baseTotal + urgentCharge).toFixed(2);
+    } else {
+      urgentBox.style.display = 'none';
+      totalDisplay.innerText = baseTotal.toFixed(2);
+    }
+  }
+
+  scheduledRadio.addEventListener('change', toggleUrgentBox);
+  urgentRadio.addEventListener('change', toggleUrgentBox);
+
+  // Initial setup
+  toggleUrgentBox();
+</script>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 {% endblock %}

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register | SHINE Cosmetics</title>
 
+<<<<<<< HEAD
   <!-- Bootstrap CSS & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -17,6 +18,18 @@
     body {
       background: linear-gradient(rgba(255, 240, 247, 0.9), rgba(255, 225, 239, 0.9)),
                   url("{% static 'buyers/img/bg2.jpg' %}") no-repeat center center/cover;
+=======
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      background:
+        linear-gradient(rgba(255, 240, 247, 0.9), rgba(255, 225, 239, 0.9)),
+        url("{% static 'buyers/img/bg2.jpg' %}") no-repeat center center/cover;
+      background-size: cover;
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
       background-attachment: fixed;
       min-height: 100vh;
       display: flex;
@@ -53,6 +66,7 @@
       -webkit-text-fill-color: transparent;
     }
 
+<<<<<<< HEAD
     .journey-title {
       font-size: 16px;
       font-weight: 600;
@@ -91,19 +105,80 @@
       box-shadow: none;
     }
 
+=======
+    .text-center.mb-4 {
+      margin-bottom: 20px !important;
+    }
+
+    .journey-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, #a78bfa, #c084fc, #e0e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease, shimmer 5s linear infinite;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    .form-floating input {
+      border: 2px solid #ffc0cb;
+      border-radius: 10px;
+      font-size: 14px;
+      background-color: #fff;
+      padding: 12px;
+      height: 48px;
+      transition: border-color 0.3s ease;
+      box-shadow: none;
+    }
+
+    .form-floating input:focus {
+      border-color: #ff69b4;
+      box-shadow: none;
+    }
+
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
     .form-floating label {
       color: #d66aa8;
       font-size: 14px;
       padding-left: 10px;
       transition: all 0.2s ease;
+<<<<<<< HEAD
       background-color: transparent; /* Remove white block */
+=======
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
     }
 
     .form-floating input:focus + label,
     .form-floating input:not(:placeholder-shown) + label {
       color: #ff69b4;
       transform: translateY(-20px) scale(0.85);
+<<<<<<< HEAD
       background-color: transparent; /* Remove white background */
+=======
+      background-color: #fff;
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
       padding: 0 5px;
       margin-left: 5px;
       z-index: 10;
@@ -171,39 +246,67 @@
         <div class="col-12">
           <div class="form-floating mb-2">
             <input type="email" class="form-control" name="email" id="email"
+<<<<<<< HEAD
                    value="{{ email|default:'' }}" placeholder="Enter your email" required>
+=======
+                   value="{{ email|default:'' }}" placeholder="name@example.com" required>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
             <label for="email">Email address</label>
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Mobile Field -->
         <div class="col-12">
           <div class="form-floating mb-2">
             <input type="text" class="form-control" name="mobile" id="mobile"
                    value="{{ mobile|default:'+91 ' }}" placeholder="Enter your mobile" required>
+=======
+        <div class="col-12">
+          <div class="form-floating mb-2">
+            <input type="text" class="form-control" name="mobile" id="mobile"
+                   value="{{ mobile|default:'+91 ' }}" placeholder="+91 9876543210" required>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
             <label for="mobile">Mobile</label>
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Password Field -->
         <div class="col-12">
           <div class="form-floating mb-2">
             <input type="password" class="form-control" name="password" id="password"
                    placeholder="Enter password" required>
+=======
+        <div class="col-12">
+          <div class="form-floating mb-2">
+            <input type="password" class="form-control" name="password" id="password"
+                   placeholder="Password" required>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
             <label for="password">Password</label>
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Confirm Password Field -->
         <div class="col-12">
           <div class="form-floating mb-2">
             <input type="password" class="form-control" name="confirm_password" id="confirm_password"
                    placeholder="Confirm password" required>
+=======
+        <div class="col-12">
+          <div class="form-floating mb-2">
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+                   placeholder="Confirm Password" required>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
             <label for="confirm_password">Confirm Password</label>
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- Submit Button -->
+=======
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
         <div class="col-12">
           <div class="d-grid">
             <button class="btn btn-pink btn-lg" type="submit">Register Now</button>

@@ -3,7 +3,11 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
     <title>{% block title %}{% endblock %} SHINE eCommerce</title>
+=======
+    <title>{% block title %}{% endblock %}SHINE eCommerce</title>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -79,8 +83,9 @@
 
             <a class="navbar-brand text-success logo h1" href="{% url 'index' %}">SHINE</a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"
-                aria-controls="main_nav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#main_nav" aria-controls="main_nav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -90,6 +95,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'product' %}">Product</a></li>
 
+                    <!-- Category Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,6 +112,7 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
                 </ul>
 
+<<<<<<< HEAD
                 <!-- Pink Themed Search Bar -->
                 <form class="d-flex search-form" action="{% url 'product_search' %}" method="GET">
                     <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q }}">
@@ -121,6 +128,16 @@
 
                 <!-- Icons -->
                 <ul class="navbar-nav ms-3">
+=======
+                <!-- Search form -->
+                <form class="d-flex search-form me-3" method="get" action="{% url 'product' %}">
+                    <input type="text" name="q" placeholder="Search..." aria-label="Search">
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+
+                <!-- Icons -->
+                <ul class="navbar-nav">
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="{% url 'cart_list' %}" title="Cart">
                             <i class="bi bi-cart-fill fs-5"></i>
@@ -155,8 +172,12 @@
                             <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
                         </li>
                         <li><i class="fa fa-envelope fa-fw"></i>
+<<<<<<< HEAD
                             <a class="text-decoration-none"
                                 href="mailto:shinecosmetics35@.com">shinecosmetics35@.com</a>
+=======
+                            <a class="text-decoration-none" href="mailto:shinecosmetics35@.com">shinecosmetics35@.com</a>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
                         </li>
                     </ul>
                 </div>

@@ -27,11 +27,18 @@
 <div class="form-container">
     <h4 class="text-center mb-4">OTP Verification</h4>
 
+<<<<<<< HEAD
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
     {% endif %}
+=======
+         <div class="mb-3 text-start">
+            <label for="otp" class="form-label">OTP Code</label>
+            <input type="text" class="form-control" id="otp" name="otp" placeholder="------" required>
+         </div>
+>>>>>>> f19ec8b970afadf0b0c50b8f5f6c4de75fe06798
 
     <form method="POST" action="{% url 'email_verify' %}">
         {% csrf_token %}

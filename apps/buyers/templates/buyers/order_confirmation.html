@@ -1,0 +1,23 @@
+{% extends 'buyers/base.html' %}
+{% load static %}
+
+{% block title %}
+Order Confirmed
+{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Thank you for your order, {{ order.customer_name }}!</h2>
+  <p>Your order (#{{ order.id }}) has been confirmed. Here are the details:</p>
+  <ul>
+    {% for item in items %}
+      <li>{{ item.name }} x{{ item.quantity }}</li>
+    {% endfor %}
+  </ul>
+  <p>Total Amount: Rs. {{ order.total_amount }}</p>
+  <p>We will notify you when your order is shipped.<br>Thank you for choosing us!</p>
+</body>
+</html>
+{% endblock %}
